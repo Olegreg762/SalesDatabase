@@ -2,6 +2,17 @@ DROP DATABASE IF EXISTS sales_db;
 CREATE DATABASE sales_db;
 USE sales_db;
 
+DROP FUNCTION IF EXISTS random_int;
+DELIMITER //
+
+CREATE FUNCTION random_int(min_val INT, max_val INT) RETURNS INT
+DETERMINISTIC
+BEGIN 
+    RETURN FLOOR(RAND() * (max_val - min_val + 1)) + min_val; 
+END // 
+
+DELIMITER ;
+
 CREATE TABLE Sales (
     salesperson_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
