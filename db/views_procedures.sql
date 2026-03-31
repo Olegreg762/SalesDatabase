@@ -16,7 +16,7 @@ ORDER BY s.annual_sales DESC;
 
 CREATE VIEW sales_report AS
 SELECT
-s.last_name AS last_name,
+s.last_name,
 s.annual_sales AS sales,
 s.customers AS customer,
 r.region,
@@ -30,13 +30,15 @@ ORDER BY s.last_name ASC;
 CREATE VIEW sales_by_region_report AS
 SELECT
 r.customer_territory AS sales_territory,
-COUNT(*) AS total_customers,
-SUM(s.annual_sales) AS total_sales,
-AVG(s.annual_sales) AS average_sales,
-MIN(s.annual_sales) AS min_sales,
-MAX(s.annual_sales) AS max_sales,
+s.last_name,
+s.customers AS customer,
+s.annual_sales AS sales,
+SUM(s.annual_sales) OVER (PARTITION BY r.customer_territory) AS total_sales,
+AVG(s.annual_sales) OVER (PARTITION BY r.customer_territory) AS average_sales,
+MIN(s.annual_sales) OVER (PARTITION BY r.customer_territory) AS min_sales,
+MAX(s.annual_sales) OVER (PARTITION BY r.customer_territory) AS max_sales
 FROM Sales s
 JOIN SalesRegions r
 ON s.salesperson_id = r.salesperson_id
-GROUP BY r.customer_territory
-ORDER BY total_sales DESC;
+ORDER BY r.customer_territory;
+
