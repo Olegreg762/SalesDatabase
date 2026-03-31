@@ -10,7 +10,7 @@ VALUES
 ("Nancy", "Gao", 22, "Royal Charter Energy", "65749", random_int(5000, 200000)),
 ("Antony", "Dresden", 26, "Protogen", "99375", random_int(5000, 200000)),
 ("James", "Holden", 29, "Rocinante", "83792", random_int(5000, 200000)),
-("Greg", "Steveson", 23, "MCRN", "20398", random_int(5000, 200000));
+("Greg", "Stevenson", 23, "MCRN", "20398", random_int(5000, 200000));
 
 INSERT INTO SalesRegions (region, customers, customer_territory, region_sales, salesperson_id)
 VALUES
