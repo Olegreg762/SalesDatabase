@@ -24,3 +24,5 @@ VALUES
 ("Middle East", "Protogen", "ME", random_int(100000, 500000), 8),
 ("Central America", "Rocinante", "CA", random_int(100000, 500000), 9),
 ("Caribbean", "MCRN", "CB", random_int(100000, 500000), 10);
+
+SOURCE views_procedures.sql;

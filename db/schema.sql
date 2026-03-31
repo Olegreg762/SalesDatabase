@@ -32,3 +32,5 @@ CREATE TABLE SalesRegions (
     salesperson_id INT NOT NULL,
     FOREIGN KEY (salesperson_id) REFERENCES Sales(salesperson_id)
 );
+
+SOURCE seeds.sql;
