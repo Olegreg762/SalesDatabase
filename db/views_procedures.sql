@@ -4,6 +4,7 @@ WHERE annual_sales > 25000;
 
 CREATE VIEW sales_region_query AS
 SELECT
+s.salesperson_id,
 s.last_name,
 s.first_name,
 s.annual_sales, 
@@ -27,7 +28,7 @@ r.customer_territory AS sales_territory,
 s.zip_code
 FROM sales_region_query sq
 JOIN Sales s
-ON sq.last_name = s.last_name
+ON sq.salesperson_id = s.salesperson_id
 JOIN SalesRegions r
 ON s.salesperson_id = r.salesperson_id
 GROUP BY
@@ -53,7 +54,7 @@ MIN(sq.annual_sales) OVER (PARTITION BY sq.region) AS min_sales,
 MAX(sq.annual_sales) OVER (PARTITION BY sq.region) AS max_sales
 FROM sales_region_query sq
 JOIN Sales s
-ON sq.last_name = s.last_name
+ON sq.salesperson_id = s.salesperson_id
 GROUP BY
 sq.region,
 s.customers,
