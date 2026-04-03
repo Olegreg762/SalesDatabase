@@ -46,7 +46,7 @@ sq.region AS sales_territory,
 s.customers AS customer,
 sq.last_name,
 s.zip_code,
-sq.annual_sales AS sales,
+sq.annual_sales,
 SUM(sq.annual_sales) OVER (PARTITION BY sq.region) AS total_sales,
 AVG(sq.annual_sales) OVER (PARTITION BY sq.region) AS average_sales,
 MIN(sq.annual_sales) OVER (PARTITION BY sq.region) AS min_sales,
@@ -60,7 +60,7 @@ s.customers,
 s.zip_code,
 sq.last_name,
 sq.annual_sales
-ORDER BY sq.region ASC;
+ORDER BY sq.annual_sales ASC;
 END //
 
 DELIMITER ;
