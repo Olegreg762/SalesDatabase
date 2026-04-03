@@ -1,12 +1,15 @@
 CREATE VIEW sales_greater_25k_query AS
-SELECT * FROM Sales
+SELECT
+salesperson_id,
+CONCAT(first_name, ' ', last_name) AS full_name,
+annual_sales
+FROM Sales
 WHERE annual_sales > 25000;
 
 CREATE VIEW sales_region_query AS
 SELECT
 s.salesperson_id,
-s.last_name,
-s.first_name,
+CONCAT(s.first_name, ' ', s.last_name) AS full_name,
 s.annual_sales, 
 r.region,
 r.region_sales
@@ -20,7 +23,7 @@ DELIMITER //
 CREATE PROCEDURE sales_report()
 BEGIN
 SELECT
-sq.last_name,
+SUBSTRING_INDEX(sq.full_name, ' ', -1) as salesperson_last_name, 
 SUM(sq.annual_sales) AS sales,
 s.customers AS customer,
 sq.region,
@@ -32,7 +35,7 @@ ON sq.salesperson_id = s.salesperson_id
 JOIN SalesRegions r
 ON s.salesperson_id = r.salesperson_id
 GROUP BY
-sq.last_name, 
+sq.full_name, 
 s.customers, 
 r.region, 
 r.customer_territory, 
@@ -43,9 +46,9 @@ END //
 CREATE PROCEDURE region_sales_report()
 BEGIN
 SELECT
+SUBSTRING_INDEX(sq.full_name, ' ', -1) as salesperson_last_name, 
 sq.region AS sales_territory,
 s.customers AS customer,
-sq.last_name,
 s.zip_code,
 sq.annual_sales,
 SUM(sq.annual_sales) OVER (PARTITION BY sq.region) AS total_sales,
@@ -56,10 +59,10 @@ FROM sales_region_query sq
 JOIN Sales s
 ON sq.salesperson_id = s.salesperson_id
 GROUP BY
+sq.full_name,
 sq.region,
 s.customers,
 s.zip_code,
-sq.last_name,
 sq.annual_sales
 ORDER BY sq.annual_sales ASC;
 END //
