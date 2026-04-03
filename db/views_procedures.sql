@@ -39,7 +39,7 @@ s.zip_code
 ORDER BY sales ASC;
 END //
 
-CREATE PROCEDURE sales_by_region_report()
+CREATE PROCEDURE region_sales_report()
 BEGIN
 SELECT
 sq.region AS sales_territory,
