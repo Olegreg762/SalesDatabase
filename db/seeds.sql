@@ -14,15 +14,15 @@ VALUES
 
 INSERT INTO SalesRegions (region, customers, customer_territory, region_sales, salesperson_id)
 VALUES
-("North America", "Tycho", "NA", random_int(100000, 500000), 1),
-("Europe", "Star Helix", "EU", random_int(100000, 500000), 2),
-("Asia", "UN", "AS", random_int(100000, 500000), 3),
-("South America", "Mao-Kwikowski Mercantile", "SA", random_int(100000, 500000), 4),
-("Africa", "Behemoth", "AF", random_int(100000, 500000), 5),
-("Oceania", "Ceres Station", "OC", random_int(100000, 500000), 6),
-("Antarctica", "Royal Charter Energy", "AN", random_int(100000, 500000), 7),
-("Middle East", "Protogen", "ME", random_int(100000, 500000), 8),
-("Central America", "Rocinante", "CA", random_int(100000, 500000), 9),
-("Caribbean", "MCRN", "CB", random_int(100000, 500000), 10);
+("North America", "Tycho", "NA", random_int(200000, 500000), 1),
+("Europe", "Star Helix", "EU", random_int(200000, 500000), 2),
+("Asia", "UN", "AS", random_int(200000, 500000), 3),
+("South America", "Mao-Kwikowski Mercantile", "SA", random_int(200000, 500000), 4),
+("Africa", "Behemoth", "AF", random_int(200000, 500000), 5),
+("Oceania", "Ceres Station", "OC", random_int(200000, 500000), 6),
+("Antarctica", "Royal Charter Energy", "AN", random_int(200000, 500000), 7),
+("Middle East", "Protogen", "ME", random_int(200000, 500000), 8),
+("Central America", "Rocinante", "CA", random_int(200000, 500000), 9),
+("Caribbean", "MCRN", "CB", random_int(200000, 500000), 10);
 
 SOURCE views_procedures.sql;

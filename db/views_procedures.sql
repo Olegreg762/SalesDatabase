@@ -16,21 +16,8 @@ ORDER BY s.annual_sales DESC;
 
 DELIMITER //
 
-CREATE PROCEDURE sales_by_region(IN region_name VARCHAR(50))
+CREATE PROCEDURE sales_report()
 BEGIN
-IF region_name IS NOT NULL THEN
-SELECT * from sales_region_query
-WHERE region = region_name
-ORDER BY annual_sales DESC;
-ELSE
-SELECT * from sales_region_query
-ORDER BY annual_sales DESC;
-END IF;
-END //
-
-DELIMITER ;
-
-CREATE VIEW sales_report AS
 SELECT
 sq.last_name,
 SUM(sq.annual_sales) AS sales,
@@ -50,8 +37,10 @@ r.region,
 r.customer_territory, 
 s.zip_code
 ORDER BY sales ASC;
+END //
 
-CREATE VIEW sales_by_region_report AS
+CREATE PROCEDURE sales_by_region_report()
+BEGIN
 SELECT
 sq.region AS sales_territory,
 s.customers AS customer,
@@ -72,3 +61,6 @@ s.zip_code,
 sq.last_name,
 sq.annual_sales
 ORDER BY sq.region ASC;
+END //
+
+DELIMITER ;
