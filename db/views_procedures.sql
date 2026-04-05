@@ -23,7 +23,7 @@ DELIMITER //
 CREATE PROCEDURE sales_report()
 BEGIN
 SELECT
-SUBSTRING_INDEX(sq.full_name, ' ', -1) as salesperson_last_name, 
+s.last_name AS salesperson_last_name,
 SUM(sq.annual_sales) AS sales,
 s.customers AS customer,
 sq.region,
@@ -35,7 +35,7 @@ ON sq.salesperson_id = s.salesperson_id
 JOIN SalesRegions r
 ON s.salesperson_id = r.salesperson_id
 GROUP BY
-sq.full_name, 
+s.last_name, 
 s.customers, 
 r.region, 
 r.customer_territory, 
@@ -46,20 +46,24 @@ END //
 CREATE PROCEDURE region_sales_report()
 BEGIN
 SELECT
-SUBSTRING_INDEX(sq.full_name, ' ', -1) as salesperson_last_name, 
-sq.region AS sales_territory,
+s.last_name AS salesperson_last_name,
+r.customer_territory AS sales_territory,
+sq.region,
 s.customers AS customer,
 s.zip_code,
 sq.annual_sales,
-SUM(sq.annual_sales) OVER (PARTITION BY sq.region) AS total_sales,
-AVG(sq.annual_sales) OVER (PARTITION BY sq.region) AS average_sales,
-MIN(sq.annual_sales) OVER (PARTITION BY sq.region) AS min_sales,
-MAX(sq.annual_sales) OVER (PARTITION BY sq.region) AS max_sales
+SUM(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS total_sales,
+AVG(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS average_sales,
+MIN(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS min_sales,
+MAX(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS max_sales
 FROM sales_region_query sq
 JOIN Sales s
 ON sq.salesperson_id = s.salesperson_id
+JOIN SalesRegions r
+ON s.salesperson_id = r.salesperson_id
 GROUP BY
-sq.full_name,
+s.last_name,
+r.customer_territory,
 sq.region,
 s.customers,
 s.zip_code,
