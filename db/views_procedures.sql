@@ -52,10 +52,10 @@ sq.region,
 s.customers AS customer,
 s.zip_code,
 sq.annual_sales,
-SUM(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS total_sales,
-AVG(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS average_sales,
-MIN(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS min_sales,
-MAX(sq.annual_sales) OVER (PARTITION BY r.customer_territory) AS max_sales
+SUM(sq.annual_sales) OVER (PARTITION BY r.region) AS region_total_sales,
+AVG(sq.annual_sales) OVER (PARTITION BY r.region) AS region_average_sales,
+MIN(sq.annual_sales) OVER (PARTITION BY r.region) AS region_min_sales,
+MAX(sq.annual_sales) OVER (PARTITION BY r.region) AS region_max_sales
 FROM sales_region_query sq
 JOIN Sales s
 ON sq.salesperson_id = s.salesperson_id
