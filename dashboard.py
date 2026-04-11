@@ -19,7 +19,7 @@ try:
         conn.execute("SELECT 1")
 except Exception as e:
     st.error("Database connection failed")
-    st.exception(e)
+    
 
 @st.cache_data(ttl=60)
 def run_query(query):
