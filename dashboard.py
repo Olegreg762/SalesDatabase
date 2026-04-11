@@ -13,12 +13,8 @@ def get_engine():
         return create_engine(st.secrets["db_url_dev"])
     else:
         return create_engine(st.secrets["db_url_prod"])
-try:
-    engine = get_engine()
-    with engine.connect() as conn:
-        conn.execute("SELECT 1")
-except Exception as e:
-    st.error("Database connection failed")
+
+engine = get_engine()
     
 
 @st.cache_data(ttl=60)
